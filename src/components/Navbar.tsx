@@ -20,7 +20,8 @@ const Navbar = ({
 }: Props) => {
   return (
     <Box
-      w='400px'
+      w='20%'
+      minW='400px'
       h='calc(100vh)'
       bg='white'
       color='black'
@@ -29,7 +30,7 @@ const Navbar = ({
       alignItems='center'
       paddingTop='40px'
       overflowY='auto'
-      overflowX='hidden'
+      overflowX='auto'
     >
       <Box display='flex'>
         <Text
@@ -57,10 +58,7 @@ const Navbar = ({
       {hasFetched ? (
         <>
           <GetUsdcButton refreshUsdcBalance={refreshUsdcBalance} />
-          <TokenBalanceDisplay
-            tokenBalance={tokenBalance}
-            hasFetched={hasFetched}
-          />
+          <TokenBalanceDisplay tokenBalance={tokenBalance} />
         </>
       ) : (
         !isDisconnected && (

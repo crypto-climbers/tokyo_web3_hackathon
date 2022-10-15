@@ -47,7 +47,7 @@ const BigBubble = ({
         >
           {children}
         </Box>
-        <Text as='b' color={textColor}>
+        <Text as='b' color={textColor} fontFamily='title'>
           {name}
         </Text>
       </Box>

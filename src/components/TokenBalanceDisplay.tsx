@@ -16,10 +16,9 @@ import { chainIcon } from "@/data/chainIcon";
 
 interface Props {
   tokenBalance: { [p: string]: TokenBalance[] };
-  hasFetched: boolean;
 }
 
-const TokenBalanceDisplay = ({ hasFetched, tokenBalance }: Props) => {
+const TokenBalanceDisplay = ({ tokenBalance }: Props) => {
   return (
     <Box
       w='400px'
@@ -29,6 +28,7 @@ const TokenBalanceDisplay = ({ hasFetched, tokenBalance }: Props) => {
       display='flex'
       flexDirection='column'
       alignItems='center'
+      fontFamily='body'
     >
       <Box mt='30px' width='75%'>
         {Object.keys(tokenBalance).map((chain: string, i: number) => {
@@ -41,7 +41,12 @@ const TokenBalanceDisplay = ({ hasFetched, tokenBalance }: Props) => {
                       display='flex'
                       justifyContent='space-between'
                     >
-                      <Text fontWeight='700' textAlign='center' key={i}>
+                      <Text
+                        fontWeight='700'
+                        textAlign='center'
+                        key={i}
+                        fontFamily='title'
+                      >
                         <Image
                           src={chainIcon[chain]}
                           alt='icon'
@@ -60,10 +65,18 @@ const TokenBalanceDisplay = ({ hasFetched, tokenBalance }: Props) => {
                         justifyContent='space-between'
                         marginBottom='8px'
                       >
-                        <ListItem listStyleType='none' fontWeight='600'>
+                        <ListItem
+                          listStyleType='none'
+                          fontWeight='600'
+                          fontFamily='title'
+                        >
                           Token
                         </ListItem>
-                        <ListItem listStyleType='none' fontWeight='600'>
+                        <ListItem
+                          listStyleType='none'
+                          fontWeight='600'
+                          fontFamily='title'
+                        >
                           USDC
                         </ListItem>
                       </Box>
@@ -76,7 +89,9 @@ const TokenBalanceDisplay = ({ hasFetched, tokenBalance }: Props) => {
                           <ListItem>
                             {token.tokenBalance.toFixed(6)} {token.symbol}
                           </ListItem>
-                          <ListItem>$ {token.usdBalance.toFixed(2)}</ListItem>
+                          <ListItem listStyleType='none' textColor='gray'>
+                            $ {token.usdBalance.toFixed(2)}
+                          </ListItem>
                         </Box>
                       ))}
                     </UnorderedList>

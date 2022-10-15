@@ -9,6 +9,11 @@ import {
   Text,
   Button,
   useToast,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
 } from "@chakra-ui/react";
 
 import { NodeType } from "@/types";
@@ -75,78 +80,95 @@ const CowSwapSideBar = ({ isOpen, onClose, node }: Props) => {
         <DrawerHeader borderBottomWidth='1px' bg='#042b64'>
           CowSwap
         </DrawerHeader>
-        <DrawerBody color='black'>
-          <Text color='red' h='30px'>
-            {error}
-          </Text>
+        <Tabs isFitted variant='enclosed' mt='20px'>
+          <TabList mb='1em'>
+            <Tab color='black' _selected={{ color: "white", bg: "#042b64" }}>
+              Wrap / Swap
+            </Tab>
+            <Tab color='black' _selected={{ color: "white", bg: "#042b64" }}>
+              Lenster
+            </Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <DrawerBody color='black'>
+                <Text color='red' h='30px'>
+                  {error}
+                </Text>
 
-          <Text mb='8px'>Wrap: </Text>
-          <Box display='flex' mb='30px'>
-            <Input
-              placeholder='Amount to wrap'
-              size='md'
-              mx='10px'
-              maxWidth='270px'
-              onChange={(e) => setAmount(e.target.value)}
-            />
-            <Button colorScheme='purple' mx='5px' onClick={onClickWrap}>
-              Wrap
-            </Button>
-          </Box>
+                <Text mb='8px'>Wrap: </Text>
+                <Box display='flex' mb='30px'>
+                  <Input
+                    placeholder='Amount to wrap'
+                    size='md'
+                    mx='10px'
+                    maxWidth='270px'
+                    onChange={(e) => setAmount(e.target.value)}
+                  />
+                  <Button colorScheme='purple' mx='5px' onClick={onClickWrap}>
+                    Wrap
+                  </Button>
+                </Box>
 
-          <Button
-            colorScheme='purple'
-            marginBottom='50px'
-            onClick={onClickApprove}
-          >
-            Approve
-          </Button>
+                <Button
+                  colorScheme='purple'
+                  marginBottom='50px'
+                  onClick={onClickApprove}
+                >
+                  Approve
+                </Button>
 
-          <Text mb='8px'>Swap: </Text>
+                <Text mb='8px'>Swap: </Text>
 
-          <Box display='flex' mb='20px'>
-            <Input
-              placeholder='WETH'
-              size='md'
-              mx='10px'
-              value='WETH'
-              onChange={(e) => setInputToken(e.target.value)}
-            />
-            ←→
-            <Input
-              placeholder='USDC'
-              size='md'
-              mx='10px'
-              value='USDC'
-              onChange={(e) => setOutputToken(e.target.value)}
-            />
-          </Box>
-          <Box display='flex' mb='20px'>
-            <Text>
-              {getTokenAddress(chainId, inputToken)}←→
-              {getTokenAddress(chainId, outputToken)}
-            </Text>
-          </Box>
-          <Box display='flex' mb='20px'>
-            <Input
-              placeholder='Amount'
-              size='md'
-              mx='10px'
-              onChange={(e) => setAmount(e.target.value)}
-            />
-            ←→
-            <Input placeholder='Estimated amount' size='md' mx='10px' />
-          </Box>
-          <Box display='flex' mb='50px'>
-            <Button
-              colorScheme='purple'
-              mx='5px'
-              onClick={cowSwap.swapWethToUsdc}
-            >
-              Swap
-            </Button>
-          </Box>
-        </DrawerBody>
+                <Box display='flex' mb='20px'>
+                  <Input
+                    placeholder='WETH'
+                    size='md'
+                    mx='10px'
+                    value='WETH'
+                    onChange={(e) => setInputToken(e.target.value)}
+                  />
+                  ←→
+                  <Input
+                    placeholder='USDC'
+                    size='md'
+                    mx='10px'
+                    value='USDC'
+                    onChange={(e) => setOutputToken(e.target.value)}
+                  />
+                </Box>
+                <Box display='flex' mb='20px'>
+                  <Text>
+                    {getTokenAddress(chainId, inputToken)}←→
+                    {getTokenAddress(chainId, outputToken)}
+                  </Text>
+                </Box>
+                <Box display='flex' mb='20px'>
+                  <Input
+                    placeholder='Amount'
+                    size='md'
+                    mx='10px'
+                    onChange={(e) => setAmount(e.target.value)}
+                  />
+                  ←→
+                  <Input placeholder='Estimated amount' size='md' mx='10px' />
+                </Box>
+                <Box display='flex' mb='50px'>
+                  <Button
+                    colorScheme='purple'
+                    mx='5px'
+                    onClick={cowSwap.swapWethToUsdc}
+                  >
+                    Swap
+                  </Button>
+                </Box>
+              </DrawerBody>
+            </TabPanel>
+            <TabPanel>
+              <p>two!</p>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
       </DrawerContent>
     </Drawer>
   );
