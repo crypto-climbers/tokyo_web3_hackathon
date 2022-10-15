@@ -28,6 +28,7 @@ const BigBubble = ({
         flexDirection='column'
         justifyContent='center'
         alignItems='center'
+        transition='ease-in-out 1s'
       >
         <Box
           bg={bubbleColor}
@@ -42,6 +43,7 @@ const BigBubble = ({
           display='flex'
           justifyContent='center'
           alignItems='center'
+          transition='ease-in-out 1s'
         >
           {children}
         </Box>

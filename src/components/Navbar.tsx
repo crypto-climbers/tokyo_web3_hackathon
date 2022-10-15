@@ -3,15 +3,21 @@ import WalletConnectButton from "@/components/WalletConnectButton";
 import { TokenBalance } from "@/types";
 import TokenBalanceDisplay from "./TokenBalanceDisplay";
 import GetUsdcButton from "./GetUsdcButton";
+import { Spinner } from "@chakra-ui/react";
 
 interface Props {
   tokenBalance: { [p: string]: TokenBalance[] };
   hasFetched: boolean;
-  isConnected: boolean;
+  isDisconnected: boolean;
   refreshUsdcBalance: () => void;
 }
 
-const Navbar = ({ tokenBalance, hasFetched, isConnected, refreshUsdcBalance }: Props) => {
+const Navbar = ({
+  tokenBalance,
+  hasFetched,
+  isDisconnected,
+  refreshUsdcBalance,
+}: Props) => {
   return (
     <Box
       w='400px'
@@ -48,16 +54,25 @@ const Navbar = ({ tokenBalance, hasFetched, isConnected, refreshUsdcBalance }: P
 
       <WalletConnectButton />
 
-      {isConnected && (
+      {hasFetched ? (
         <>
-          <GetUsdcButton
-            refreshUsdcBalance={refreshUsdcBalance}
-          />
+          <GetUsdcButton refreshUsdcBalance={refreshUsdcBalance} />
           <TokenBalanceDisplay
             tokenBalance={tokenBalance}
             hasFetched={hasFetched}
           />
         </>
+      ) : (
+        !isDisconnected && (
+          <Spinner
+            thickness='4px'
+            speed='0.65s'
+            emptyColor='gray.200'
+            color='blue.500'
+            size='xl'
+            mt='40px'
+          />
+        )
       )}
     </Box>
   );

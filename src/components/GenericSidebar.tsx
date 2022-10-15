@@ -32,11 +32,13 @@ interface Props {
   onClose: () => void;
   node: NodeType;
   token?: string;
+  title: string;
+  color: string;
 }
 
 type SlideDirection = "top" | "left" | "bottom" | "right";
 
-const Modal = ({ isOpen, onClose, node, token }: Props) => {
+const Modal = ({ isOpen, onClose, node, token, title, color }: Props) => {
   const [placement, setPlacement] = useState<SlideDirection>("right");
 
   const [inputToken, setInputToken] = useState("");
@@ -59,8 +61,8 @@ const Modal = ({ isOpen, onClose, node, token }: Props) => {
     <Drawer placement={placement} onClose={onClose} isOpen={isOpen} size='lg'>
       <DrawerOverlay />
       <DrawerContent>
-        <DrawerHeader borderBottomWidth='1px' bg='gray'>
-          Basic Drawer
+        <DrawerHeader borderBottomWidth='1px' bg={color}>
+          {title}
         </DrawerHeader>
         <DrawerBody color='black'>
           {/* <Text mb='8px'>Swap: </Text>
@@ -115,25 +117,43 @@ const Modal = ({ isOpen, onClose, node, token }: Props) => {
           </Box> */}
           <Text mb='8px'>Provide Liquidity: </Text>
           <Box display='flex' marginBottom='30px'>
-            <Input placeholder='Usdc supply' size='md' mx='10px' maxWidth='300px' />
-            <Button colorScheme='purple' mx='5px' onClick={() =>
-              aave.supply(
-                "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
-                String(parseInt(amount) * Math.pow(10, 6))
-              )
-            }>
+            <Input
+              placeholder='Usdc supply'
+              size='md'
+              mx='10px'
+              maxWidth='300px'
+            />
+            <Button
+              colorScheme='purple'
+              mx='5px'
+              onClick={() =>
+                aave.supply(
+                  "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+                  String(parseInt(amount) * Math.pow(10, 6))
+                )
+              }
+            >
               Supply
             </Button>
           </Box>
           <Text mb='8px'>Withdraw Liquidity: </Text>
           <Box display='flex'>
-            <Input placeholder='Usdc withdraw' size='md' mx='10px' maxWidth='300px' />
-            <Button colorScheme='purple' mx='5px' onClick={() =>
-              aave.withdraw(
-                "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
-                String(parseInt(amount) * Math.pow(10, 6))
-              )
-            }>
+            <Input
+              placeholder='Usdc withdraw'
+              size='md'
+              mx='10px'
+              maxWidth='300px'
+            />
+            <Button
+              colorScheme='purple'
+              mx='5px'
+              onClick={() =>
+                aave.withdraw(
+                  "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+                  String(parseInt(amount) * Math.pow(10, 6))
+                )
+              }
+            >
               Withdraw
             </Button>
           </Box>
