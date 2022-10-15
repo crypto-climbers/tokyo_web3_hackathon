@@ -24,6 +24,7 @@ import { quickSwapRouter, uniSwapRouter } from "@/data/router";
 import { TOKEN_LIST } from "@/data/tokenlist";
 import { AAVE } from "@/components/aave";
 import { CowSwap } from "./cowSwap";
+import LensPost from "./LensPost";
 
 //gets token address from the TOKEN_LIST.json file
 const getTokenAddress = (chainId: number, symbol: string) => {
@@ -82,10 +83,10 @@ const CowSwapSideBar = ({ isOpen, onClose, node }: Props) => {
         </DrawerHeader>
         <Tabs isFitted variant='enclosed' mt='20px'>
           <TabList mb='1em'>
-            <Tab color='black' _selected={{ color: "white", bg: "#042b64" }}>
+            <Tab color='black' _selected={{ color: "white", bg: "#042b649b" }}>
               Wrap / Swap
             </Tab>
-            <Tab color='black' _selected={{ color: "white", bg: "#042b64" }}>
+            <Tab color='black' _selected={{ color: "white", bg: "#042b649b" }}>
               Lenster
             </Tab>
           </TabList>
@@ -164,8 +165,8 @@ const CowSwapSideBar = ({ isOpen, onClose, node }: Props) => {
                 </Box>
               </DrawerBody>
             </TabPanel>
-            <TabPanel>
-              <p>two!</p>
+            <TabPanel overflowY='scroll' maxHeight='90vh'>
+              <LensPost condition='cowswap' color='#042b64' />
             </TabPanel>
           </TabPanels>
         </Tabs>

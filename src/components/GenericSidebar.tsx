@@ -14,6 +14,7 @@ import {
   Tab,
   TabPanel,
 } from "@chakra-ui/react";
+import LensPost from "./LensPost";
 
 import { NodeType } from "@/types";
 import { useState } from "react";
@@ -71,10 +72,10 @@ const Modal = ({ isOpen, onClose, node, token, title, color }: Props) => {
         </DrawerHeader>
         <Tabs isFitted variant='enclosed' mt='20px'>
           <TabList mb='1em'>
-            <Tab color='black' _selected={{ color: "white", bg: color }}>
+            <Tab color='black' _selected={{ color: "white", bg: color + "9b" }}>
               Liquidity
             </Tab>
-            <Tab color='black' _selected={{ color: "white", bg: color }}>
+            <Tab color='black' _selected={{ color: "white", bg: color + "9b" }}>
               Lenster
             </Tab>
           </TabList>
@@ -175,8 +176,8 @@ const Modal = ({ isOpen, onClose, node, token, title, color }: Props) => {
                 </Box>
               </DrawerBody>
             </TabPanel>
-            <TabPanel>
-              <p>two!</p>
+            <TabPanel overflowY='scroll' maxHeight='90vh'>
+              <LensPost condition='aave' color='#ff007b9b' />
             </TabPanel>
           </TabPanels>
         </Tabs>

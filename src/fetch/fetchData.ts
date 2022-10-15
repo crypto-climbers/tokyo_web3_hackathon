@@ -1,4 +1,4 @@
-import { query1, query2, query3, query4 } from "@/data/query";
+import { query1, query2, query3, query4, lensSearchQuery } from "@/data/query";
 import { initUrql } from "@/libs/gql-requests";
 import { NodeType, Protocol } from "@/types";
 import { UNISWAP_COLOR, AAVE_COLOR } from "@/styles/colors";
@@ -8,6 +8,8 @@ const UNISWAP_APIURL =
 
 const AAVE_APIURL =
   "https://api.thegraph.com/subgraphs/name/aave/protocol-v3-polygon";
+
+const LENS_APIURL = "https://api.lens.dev";
 
 async function fetchUniswapData() {
   try {
@@ -120,4 +122,17 @@ async function fetchAaveData() {
   }
 }
 
-export { fetchUniswapData, fetchAaveData };
+async function fetchPublications(condition: string) {
+  try {
+    const lensClient = await initUrql(LENS_APIURL);
+    const response = await lensClient
+      .query(lensSearchQuery(condition), {})
+      .toPromise();
+      console.log(response, ">>>")
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export { fetchUniswapData, fetchAaveData, fetchPublications };

@@ -12,7 +12,7 @@ import { useAccount } from "wagmi";
 import { useSigner } from "wagmi";
 import { Tvl } from "@/components/tvl";
 import CowSwapSideBar from "@/components/CowSwapSideBar";
-import { fetchUniswapData, fetchAaveData } from "@/fetch/fetchProtocolData";
+import { fetchUniswapData, fetchAaveData } from "@/fetch/fetchData";
 
 const Graph = dynamic(() => import("@/components/CollisionDetectionFG"), {
   ssr: false,
