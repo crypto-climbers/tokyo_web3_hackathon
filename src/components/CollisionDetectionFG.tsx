@@ -18,7 +18,9 @@ const CollisionDetectionFG = ({ size, data, highlightColor }: Props) => {
   const fgRef = useRef();
   const [graphData, setGraphData] = useState({ nodes: [], links: [] });
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selectedNode, setSelectedNode] = useState({});
+  const [selectedNode, setSelectedNode] = useState<NodeType | undefined>(
+    undefined
+  );
   const [originalColor, setOriginalColor] = useState("");
 
   const handleClick = (node) => {
@@ -59,7 +61,7 @@ const CollisionDetectionFG = ({ size, data, highlightColor }: Props) => {
         forceCollide((d) => d.val)
       );
       fg.d3Force("box", () => {
-        const SQUARE_HALF_SIDE = size;
+        const SQUARE_HALF_SIDE = size * 2;
 
         data.forEach((node) => {
           const x = node.x || 0,
@@ -90,29 +92,45 @@ const CollisionDetectionFG = ({ size, data, highlightColor }: Props) => {
         onNodeClick={handleClick}
         nodeColor={(d) => d.color}
       />
-      {selectedNode.protocol == Protocol.UNISWAP &&
-        <UniswapSidebar
-          isOpen={isOpen}
-          onClose={() => handleClose(selectedNode)}
-          node={selectedNode}
-          inputToken={selectedNode.token0Address == '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'NATIVE' : selectedNode.token0Address}
-          outputToken={selectedNode.token1Address == '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2' ? 'NATIVE' : selectedNode.token1Address}
-        />
-      }
-      {selectedNode.protocol == Protocol.AAVE &&
-        <Modal
-        isOpen={isOpen}
-        onClose={() => handleClose(selectedNode)}
-        node={selectedNode}
-        />
-      }
-      {selectedNode.protocol == Protocol.COWSWAP &&
-        <CowSwapSideBar
-        isOpen={isOpen}
-        onClose={() => handleClose(selectedNode)}
-        node={selectedNode}
-        />
-      }
+      {selectedNode && (
+        <>
+          {selectedNode.protocol == Protocol.UNISWAP && (
+            <UniswapSidebar
+              isOpen={isOpen}
+              onClose={() => handleClose(selectedNode)}
+              node={selectedNode}
+              inputToken={
+                selectedNode.token0Address ==
+                "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+                  ? "NATIVE"
+                  : selectedNode.token0Address
+              }
+              outputToken={
+                selectedNode.token1Address ==
+                "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+                  ? "NATIVE"
+                  : selectedNode.token1Address
+              }
+            />
+          )}
+          {selectedNode.protocol == Protocol.AAVE && (
+            <Modal
+              isOpen={isOpen}
+              onClose={() => handleClose(selectedNode)}
+              node={selectedNode}
+              title='AAVE'
+              color='#a462a0'
+            />
+          )}
+          {selectedNode.protocol == Protocol.COWSWAP && (
+            <CowSwapSideBar
+              isOpen={isOpen}
+              onClose={() => handleClose(selectedNode)}
+              node={selectedNode}
+            />
+          )}
+        </>
+      )}
     </>
   );
 };

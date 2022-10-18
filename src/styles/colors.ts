@@ -9,7 +9,7 @@ const AAVE_COLOR = {
   bigBubble: "#a462a02B",
   smallBubbles: "#90D3EDBD",
   textColor: "#a462a0",
-  highlightColor: "#a462a0",
+  highlightColor: "#8a62a4",
 };
 
 const COWSWAP_COLOR = {

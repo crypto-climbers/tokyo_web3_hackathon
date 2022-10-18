@@ -8,7 +8,13 @@ import {
   Box,
   Text,
   Button,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
 } from "@chakra-ui/react";
+import LensPost from "./LensPost";
 
 import { NodeType } from "@/types";
 import { useState } from "react";
@@ -32,11 +38,13 @@ interface Props {
   onClose: () => void;
   node: NodeType;
   token?: string;
+  title: string;
+  color: string;
 }
 
 type SlideDirection = "top" | "left" | "bottom" | "right";
 
-const Modal = ({ isOpen, onClose, node, token }: Props) => {
+const Modal = ({ isOpen, onClose, node, token, title, color }: Props) => {
   const [placement, setPlacement] = useState<SlideDirection>("right");
 
   const [inputToken, setInputToken] = useState("");
@@ -59,11 +67,22 @@ const Modal = ({ isOpen, onClose, node, token }: Props) => {
     <Drawer placement={placement} onClose={onClose} isOpen={isOpen} size='lg'>
       <DrawerOverlay />
       <DrawerContent>
-        <DrawerHeader borderBottomWidth='1px' bg='gray'>
-          Basic Drawer
+        <DrawerHeader borderBottomWidth='1px' bg={color}>
+          {title}
         </DrawerHeader>
-        <DrawerBody color='black'>
-          {/* <Text mb='8px'>Swap: </Text>
+        <Tabs isFitted variant='enclosed' mt='20px'>
+          <TabList mb='1em'>
+            <Tab color='black' _selected={{ color: "white", bg: color + "9b" }}>
+              Liquidity
+            </Tab>
+            <Tab color='black' _selected={{ color: "white", bg: color + "9b" }}>
+              Lenster
+            </Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <DrawerBody color='black'>
+                {/* <Text mb='8px'>Swap: </Text>
 
           <Box display='flex' mb='20px'>
             <Input
@@ -113,31 +132,55 @@ const Modal = ({ isOpen, onClose, node, token }: Props) => {
               Swap
             </Button>
           </Box> */}
-          <Text mb='8px'>Provide Liquidity: </Text>
-          <Box display='flex' marginBottom='30px'>
-            <Input placeholder='Usdc supply' size='md' mx='10px' maxWidth='300px' />
-            <Button colorScheme='purple' mx='5px' onClick={() =>
-              aave.supply(
-                "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
-                String(parseInt(amount) * Math.pow(10, 6))
-              )
-            }>
-              Supply
-            </Button>
-          </Box>
-          <Text mb='8px'>Withdraw Liquidity: </Text>
-          <Box display='flex'>
-            <Input placeholder='Usdc withdraw' size='md' mx='10px' maxWidth='300px' />
-            <Button colorScheme='purple' mx='5px' onClick={() =>
-              aave.withdraw(
-                "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
-                String(parseInt(amount) * Math.pow(10, 6))
-              )
-            }>
-              Withdraw
-            </Button>
-          </Box>
-        </DrawerBody>
+                <Text mb='8px'>Provide Liquidity: </Text>
+                <Box display='flex' marginBottom='30px'>
+                  <Input
+                    placeholder='Usdc supply'
+                    size='md'
+                    mx='10px'
+                    maxWidth='300px'
+                  />
+                  <Button
+                    colorScheme='purple'
+                    mx='5px'
+                    onClick={() =>
+                      aave.supply(
+                        "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+                        String(parseInt(amount) * Math.pow(10, 6))
+                      )
+                    }
+                  >
+                    Supply
+                  </Button>
+                </Box>
+                <Text mb='8px'>Withdraw Liquidity: </Text>
+                <Box display='flex'>
+                  <Input
+                    placeholder='Usdc withdraw'
+                    size='md'
+                    mx='10px'
+                    maxWidth='300px'
+                  />
+                  <Button
+                    colorScheme='purple'
+                    mx='5px'
+                    onClick={() =>
+                      aave.withdraw(
+                        "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+                        String(parseInt(amount) * Math.pow(10, 6))
+                      )
+                    }
+                  >
+                    Withdraw
+                  </Button>
+                </Box>
+              </DrawerBody>
+            </TabPanel>
+            <TabPanel overflowY='scroll' maxHeight='90vh'>
+              <LensPost condition='aave' color='#ff007b9b' />
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
       </DrawerContent>
     </Drawer>
   );
