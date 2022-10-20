@@ -11,6 +11,7 @@ export interface NodeType {
   token1?: string;
   color: string;
   protocol: Protocol;
+  img?: string[];
 }
 
 export enum ChainName {

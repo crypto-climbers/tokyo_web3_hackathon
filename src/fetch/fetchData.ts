@@ -61,6 +61,10 @@ async function fetchUniswapData() {
         token1Address: position.token1.id,
         token1: position.token1.symbol,
         protocol: Protocol.UNISWAP,
+        img: [
+          `/symbols/${position.token0.symbol}.png`,
+          `/symbols/${position.token1.symbol}.png`,
+        ],
       });
     });
 
@@ -113,6 +117,7 @@ async function fetchAaveData() {
         token0Address: reserve.sToken.id,
         token0: reserve.symbol,
         protocol: Protocol.AAVE,
+        img: [`/symbols/${reserve.token0.symbol}.png`],
       });
     });
 
@@ -128,7 +133,7 @@ async function fetchPublications(condition: string) {
     const response = await lensClient
       .query(lensSearchQuery(condition), {})
       .toPromise();
-      console.log(response, ">>>")
+    console.log(response, ">>>");
     return response;
   } catch (error) {
     console.log(error);
