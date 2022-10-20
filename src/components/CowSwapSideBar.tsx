@@ -87,7 +87,7 @@ const CowSwapSideBar = ({ isOpen, onClose, node }: Props) => {
               Wrap / Swap
             </Tab>
             <Tab color='black' _selected={{ color: "white", bg: "#042b649b" }}>
-              Lenster
+              Social
             </Tab>
           </TabList>
           <TabPanels>

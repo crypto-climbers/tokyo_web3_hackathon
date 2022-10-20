@@ -76,7 +76,7 @@ const Modal = ({ isOpen, onClose, node, token, title, color }: Props) => {
               Liquidity
             </Tab>
             <Tab color='black' _selected={{ color: "white", bg: color + "9b" }}>
-              Lenster
+              Social
             </Tab>
           </TabList>
           <TabPanels>

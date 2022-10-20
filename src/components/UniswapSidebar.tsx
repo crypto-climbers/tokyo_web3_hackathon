@@ -65,7 +65,7 @@ const UniswapSidebar = ({
               Swap / Liquidity
             </Tab>
             <Tab color='black' _selected={{ color: "white", bg: "#ff007b9b" }}>
-              Lenster
+              Social
             </Tab>
           </TabList>
           <TabPanels>
