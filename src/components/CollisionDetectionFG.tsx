@@ -1,8 +1,8 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { ForceGraph2D } from "react-force-graph";
 //@ts-ignore
 import { forceCollide } from "d3-force-3d";
-import { useDisclosure } from "@chakra-ui/react";
+import { useDisclosure, Text } from "@chakra-ui/react";
 import Modal from "@/components/GenericSidebar";
 import { NodeType, Protocol } from "@/types";
 import UniswapSidebar from "./UniswapSidebar";
@@ -22,6 +22,58 @@ const CollisionDetectionFG = ({ size, data, highlightColor }: Props) => {
     undefined
   );
   const [originalColor, setOriginalColor] = useState("");
+  const handleClose = (node) => {
+    onClose();
+
+    node.color = originalColor;
+    setSelectedNode({});
+    fgRef.current.zoomToFit(1000, 300);
+  };
+  const checkProtocol = useCallback(() => {
+    switch (selectedNode?.title) {
+      case Protocol.UNISWAP:
+        return (
+          <UniswapSidebar
+            isOpen={isOpen}
+            onClose={() => handleClose(selectedNode)}
+            node={selectedNode}
+            inputToken={
+              selectedNode.token0Address ==
+              "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+                ? "NATIVE"
+                : selectedNode.token0Address
+            }
+            outputToken={
+              selectedNode.token1Address ==
+              "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
+                ? "NATIVE"
+                : selectedNode.token1Address
+            }
+          />
+        );
+
+      case Protocol.COWSWAP:
+        return (
+          <CowSwapSideBar
+            isOpen={isOpen}
+            onClose={() => handleClose(selectedNode)}
+            node={selectedNode}
+          />
+        );
+
+      default:
+        return (
+          <Modal
+            isOpen={isOpen}
+            onClose={() => handleClose(selectedNode)}
+            node={selectedNode}
+            title={selectedNode.title}
+            color={selectedNode.color}
+            protocolName={selectedNode.protocol}
+          />
+        );
+    }
+  }, [isOpen, selectedNode]);
 
   const handleClick = (node) => {
     setOriginalColor(node.color);
@@ -37,14 +89,6 @@ const CollisionDetectionFG = ({ size, data, highlightColor }: Props) => {
       500 // ms transition duration
     );
     fgRef.current.zoom(8, 500);
-  };
-
-  const handleClose = (node) => {
-    onClose();
-
-    node.color = originalColor;
-    setSelectedNode({});
-    fgRef.current.zoomToFit(1000, 300);
   };
 
   useEffect(() => {
@@ -124,47 +168,7 @@ const CollisionDetectionFG = ({ size, data, highlightColor }: Props) => {
           );
         }}
       />
-      {selectedNode && (
-        <>
-          {selectedNode.protocol == Protocol.UNISWAP && (
-            <UniswapSidebar
-              isOpen={isOpen}
-              onClose={() => handleClose(selectedNode)}
-              node={selectedNode}
-              inputToken={
-                selectedNode.token0Address ==
-                "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
-                  ? "NATIVE"
-                  : selectedNode.token0Address
-              }
-              outputToken={
-                selectedNode.token1Address ==
-                "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"
-                  ? "NATIVE"
-                  : selectedNode.token1Address
-              }
-            />
-          )}
-          {selectedNode.protocol == Protocol.AAVE ||
-            Protocol.CURVE ||
-            (Protocol.LIDO && (
-              <Modal
-                isOpen={isOpen}
-                onClose={() => handleClose(selectedNode)}
-                node={selectedNode}
-                title={selectedNode.title}
-                color={selectedNode.color}
-              />
-            ))}
-          {selectedNode.protocol == Protocol.COWSWAP && (
-            <CowSwapSideBar
-              isOpen={isOpen}
-              onClose={() => handleClose(selectedNode)}
-              node={selectedNode}
-            />
-          )}
-        </>
-      )}
+      {selectedNode && <>{checkProtocol()}</>}
     </>
   );
 };

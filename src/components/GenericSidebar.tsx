@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import LensPost from "./LensPost";
 
-import { NodeType } from "@/types";
+import { NodeType, Protocol } from "@/types";
 import { useState } from "react";
 import { swapTokensV2 } from "@/components/Swaptoken";
 import { quickSwapABI, uniSwapABI } from "@/data/ABI";
@@ -40,11 +40,20 @@ interface Props {
   token?: string;
   title: string;
   color: string;
+  protocolName: Protocol;
 }
 
 type SlideDirection = "top" | "left" | "bottom" | "right";
 
-const Modal = ({ isOpen, onClose, node, token, title, color }: Props) => {
+const Modal = ({
+  isOpen,
+  onClose,
+  node,
+  token,
+  title,
+  color,
+  protocolName,
+}: Props) => {
   const [placement, setPlacement] = useState<SlideDirection>("right");
 
   const [inputToken, setInputToken] = useState("");
@@ -177,7 +186,8 @@ const Modal = ({ isOpen, onClose, node, token, title, color }: Props) => {
               </DrawerBody>
             </TabPanel>
             <TabPanel overflowY='scroll' maxHeight='90vh'>
-              <LensPost condition='aave' color='#ff007b9b' />
+              {node.title}
+              <LensPost condition={protocolName} color='#ff007b9b' />
             </TabPanel>
           </TabPanels>
         </Tabs>
