@@ -33,4 +33,18 @@ const LIDO_COLOR = {
   highlightColor: "#042b64",
 };
 
-export { UNISWAP_COLOR, AAVE_COLOR, COWSWAP_COLOR, CURVE_COLOR, LIDO_COLOR };
+const QUICK_COLOR = {
+  bigBubble: "#b265ff2B",
+  smallBubbles: "#954ddaBD",
+  textColor: "#687FA2",
+  highlightColor: "#042b64",
+};
+
+export {
+  UNISWAP_COLOR,
+  AAVE_COLOR,
+  COWSWAP_COLOR,
+  CURVE_COLOR,
+  LIDO_COLOR,
+  QUICK_COLOR,
+};
