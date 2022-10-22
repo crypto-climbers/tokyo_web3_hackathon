@@ -23,6 +23,8 @@ export enum Protocol {
   UNISWAP = "uniswap",
   AAVE = "aave",
   COWSWAP = "cowswap",
+  CURVE = "curve",
+  LIDO = "lido",
 }
 
 export interface TokenBalance {

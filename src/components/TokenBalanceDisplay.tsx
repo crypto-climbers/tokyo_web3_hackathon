@@ -9,7 +9,6 @@ import {
   ListItem,
   UnorderedList,
 } from "@chakra-ui/react";
-import { Spinner } from "@chakra-ui/react";
 import { TokenBalance } from "@/types";
 import Image from "next/image";
 import { chainIcon } from "@/data/chainIcon";

@@ -19,4 +19,18 @@ const COWSWAP_COLOR = {
   highlightColor: "#042b64",
 };
 
-export { UNISWAP_COLOR, AAVE_COLOR, COWSWAP_COLOR };
+const CURVE_COLOR = {
+  bigBubble: "#3465a32b",
+  smallBubbles: "#a5a4ceBD",
+  textColor: "#687FA2",
+  highlightColor: "#4ef9ac",
+};
+
+const LIDO_COLOR = {
+  bigBubble: "#f3847c2B",
+  smallBubbles: "#001AFFBD",
+  textColor: "#687FA2",
+  highlightColor: "#042b64",
+};
+
+export { UNISWAP_COLOR, AAVE_COLOR, COWSWAP_COLOR, CURVE_COLOR, LIDO_COLOR };

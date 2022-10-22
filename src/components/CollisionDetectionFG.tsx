@@ -145,15 +145,17 @@ const CollisionDetectionFG = ({ size, data, highlightColor }: Props) => {
               }
             />
           )}
-          {selectedNode.protocol == Protocol.AAVE && (
-            <Modal
-              isOpen={isOpen}
-              onClose={() => handleClose(selectedNode)}
-              node={selectedNode}
-              title='AAVE'
-              color='#a462a0'
-            />
-          )}
+          {selectedNode.protocol == Protocol.AAVE ||
+            Protocol.CURVE ||
+            (Protocol.LIDO && (
+              <Modal
+                isOpen={isOpen}
+                onClose={() => handleClose(selectedNode)}
+                node={selectedNode}
+                title={selectedNode.title}
+                color={selectedNode.color}
+              />
+            ))}
           {selectedNode.protocol == Protocol.COWSWAP && (
             <CowSwapSideBar
               isOpen={isOpen}

@@ -1,18 +1,24 @@
 import type { NextPage } from "next";
-import { UNISWAP_COLOR, AAVE_COLOR, COWSWAP_COLOR } from "@/styles/colors";
+import {
+  UNISWAP_COLOR,
+  AAVE_COLOR,
+  COWSWAP_COLOR,
+  CURVE_COLOR,
+  LIDO_COLOR,
+} from "@/styles/colors";
 import BigBubble from "@/components/BigBubble";
 import Navbar from "@/components/Navbar";
 import dynamic from "next/dynamic";
-import { Box, Select } from "@chakra-ui/react";
-import { aaveNode } from "@/data/protocols";
+import { Box, Button, Select } from "@chakra-ui/react";
+import { aaveNode, lidoNode, curveNode } from "@/data/protocols";
 import { GetWalletData } from "@/components/getWalletBalance";
 import { NodeType, TokenBalance, ViewType } from "@/types";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useAccount } from "wagmi";
-import { useSigner } from "wagmi";
 import { Tvl } from "@/components/tvl";
 import CowSwapSideBar from "@/components/CowSwapSideBar";
 import { fetchUniswapData, fetchAaveData } from "@/fetch/fetchData";
+import { AAVE } from "@/components/aave";
 
 const Graph = dynamic(() => import("@/components/CollisionDetectionFG"), {
   ssr: false,
@@ -37,6 +43,8 @@ const Home: NextPage = () => {
   }, []);
 
   const [view, setView] = useState<ViewType>(ViewType.TVL);
+
+  const aave = new AAVE();
 
   const aaveBubbleSize = useMemo(() => {
     return aaveTvl && uniTvl
@@ -103,8 +111,16 @@ const Home: NextPage = () => {
     }
   }, []);
 
+
   return (
     <Box display='flex' fontFamily='body'>
+      <Button
+        onClick={() =>
+          aave.supply("0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174", "100000")
+        }
+      >
+        Test
+      </Button>
       <Navbar
         tokenBalance={tokenBalance}
         hasFetched={hasFetched}
@@ -187,30 +203,30 @@ const Home: NextPage = () => {
             name='Curve'
             bubbleColor={"#3465a32b"}
             imagePath='/curve.png'
-            textColor={UNISWAP_COLOR.textColor}
+            textColor={CURVE_COLOR.textColor}
             x={40}
             y={60}
           >
             <Graph
               size={20}
-              data={uniswapData}
-              highlightColor={UNISWAP_COLOR.highlightColor}
+              data={curveNode}
+              highlightColor={CURVE_COLOR.highlightColor}
             />
           </BigBubble>
         </Box>
         <BigBubble
           size={aaveBubbleSize}
           name='Lido'
-          bubbleColor={"#f3837b2b"}
+          bubbleColor={LIDO_COLOR.bigBubble}
           imagePath='/LDO.png'
-          textColor={UNISWAP_COLOR.textColor}
+          textColor={LIDO_COLOR.textColor}
           x={20}
           y={60}
         >
           <Graph
             size={20}
-            data={uniswapData}
-            highlightColor={UNISWAP_COLOR.highlightColor}
+            data={lidoNode}
+            highlightColor={LIDO_COLOR.highlightColor}
           />
         </BigBubble>
       </Box>
