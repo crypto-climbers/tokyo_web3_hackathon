@@ -38,7 +38,8 @@ const Home: NextPage = () => {
   const [uniswapBubble, setUniswapBubble] = useState<number>(396);
   const [aaveBubble, setAaveBubble] = useState<number>(491);
   const [cowswapBubble, setCowswapBubble] = useState<number>(0);
-  const [quickswapBubble, setQcuickswapBubble] = useState<number>(250);
+  const [curveBubble, setCurveBubble] = useState<number>(57);
+  const [quickswapBubble, setQcuickswapBubble] = useState<number>(282);
   const [lindoBubble, setLindoBubble] = useState<number>(60);
   const [aaveData, setAaveData] = useState<NodeType[]>([]);
   const [uniTvl, setUniTvl] = useState<number>();
@@ -97,16 +98,18 @@ const Home: NextPage = () => {
         setCowswapBubble(20);
         setAaveBubble(92);
         setLindoBubble(100);
-        setQcuickswapBubble(70);
+        setQcuickswapBubble(63);
+        setCurveBubble(4.8);
         break;
 
       case "APR":
-        setView(ViewType.APL);
+        setView(ViewType.APR);
         setUniswapBubble(101);
         setCowswapBubble(0);
         setAaveBubble(148);
         setLindoBubble(500);
-        setQcuickswapBubble(0);
+        setQcuickswapBubble(56);
+        setCurveBubble(60);
         break;
 
       case "TA":
@@ -115,7 +118,8 @@ const Home: NextPage = () => {
         setCowswapBubble(37);
         setAaveBubble(0);
         setLindoBubble(0);
-        setQcuickswapBubble(150);
+        setQcuickswapBubble(179);
+        setCurveBubble(86);
         break;
 
       default:
@@ -124,7 +128,8 @@ const Home: NextPage = () => {
         setCowswapBubble(0);
         setAaveBubble(491);
         setLindoBubble(60);
-        setQcuickswapBubble(250);
+        setQcuickswapBubble(282);
+        setCurveBubble(57);
     }
   }, []);
 
@@ -209,7 +214,7 @@ const Home: NextPage = () => {
           />
 
           <BigBubble
-            size={cowswapBubble}
+            size={curveBubble}
             name='Curve'
             bubbleColor={"#3465a32b"}
             imagePath='/curve.png'
@@ -230,8 +235,8 @@ const Home: NextPage = () => {
             bubbleColor={LIDO_COLOR.bigBubble}
             imagePath='/LDO.png'
             textColor={LIDO_COLOR.textColor}
-            x={20}
-            y={60}
+            x={50}
+            y={70}
           >
             <Graph
               size={20}

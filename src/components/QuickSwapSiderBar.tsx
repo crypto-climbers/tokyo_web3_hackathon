@@ -84,18 +84,18 @@ const QuickSwapSideBar = ({ isOpen, onClose, node }: Props) => {
 
                 <Box display='flex' mb='20px'>
                   <Input
-                    placeholder='WETH'
+                    placeholder={node.token1}
                     size='md'
                     mx='10px'
-                    value='WETH'
+                    value={node.token1}
                     onChange={(e) => setInputToken(e.target.value)}
                   />
                   ←→
                   <Input
-                    placeholder='USDC'
+                    placeholder={node.token2}
                     size='md'
                     mx='10px'
-                    value='USDC'
+                    value={node.token2}
                     onChange={(e) => setOutputToken(e.target.value)}
                   />
                 </Box>

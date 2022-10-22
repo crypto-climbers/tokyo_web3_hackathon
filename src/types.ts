@@ -36,7 +36,7 @@ export interface TokenBalance {
 
 export enum ViewType {
   TVL = "TVL",
-  APL = "APL",
+  APR = "APR",
   TXs = "TXs",
   TA = "TA",
 }
