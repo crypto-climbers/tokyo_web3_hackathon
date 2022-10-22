@@ -8,14 +8,15 @@ const address = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48";
 
 const ethereum_provider = new ethers.providers.AlchemyProvider(
   "mainnet",
-  process.env.PROVIDER_MAINNET
+  process.env.NEXT_PUBLIC_PROVIDER_MAINNET
 );
 
 export class CowSwap {
   async ethToWeth() {
     try {
-      const provider_wallet = new ethers.providers.Web3Provider(
-        window.ethereum
+      const provider_wallet = new ethers.providers.AlchemyProvider(
+        "mainnet",
+        process.env.NEXT_PUBLIC_PROVIDER_MAINNET
       );
       const signer = provider_wallet.getSigner();
       const walletAddress = getAccount().address;

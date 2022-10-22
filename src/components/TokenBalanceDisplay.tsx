@@ -34,7 +34,7 @@ const TokenBalanceDisplay = ({ tokenBalance }: Props) => {
         {Object.keys(tokenBalance).map((chain: string, i: number) => {
           return (
             <>
-              <Accordion defaultIndex={[0]} allowMultiple>
+              <Accordion defaultIndex={[0]} allowMultiple key={i}>
                 <AccordionItem marginBottom='30px'>
                   <h2>
                     <AccordionButton

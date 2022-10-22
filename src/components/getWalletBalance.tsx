@@ -12,11 +12,11 @@ import { AAVE_POOL_ABI } from "@/data/aave/pool.abi";
 const address = getAccount().address;
 const polygon_provider = new ethers.providers.AlchemyProvider(
   ChainName.MATIC,
-  process.env.PROVIDER_POLYGON
+  process.env.NEXT_PUBLIC_ALCHEMY_ID
 );
 const optimism_provider = new ethers.providers.AlchemyProvider(
   ChainName.OPTIMISM,
-  process.env.PROVIDER_OPTIMISM
+  process.env.NEXT_PUBLIC_ALCHEMY_ID
 );
 
 export class GetWalletData {
@@ -25,7 +25,7 @@ export class GetWalletData {
     // const accounts = await ethereum.request({
     //   method: "eth_requestAccounts",
     // });
-    const walletAddress = getAccount().address;
+    // const walletAddress2 = getAccount().address;
 
     // TODO: Whose address?
     const walletAddress2 = "0xEE860E9d8eCBFfEa3D27Eb76E5B923C2E9488ACf";
@@ -39,12 +39,14 @@ export class GetWalletData {
       const symbol = POLYGON_TOKEN_ADDRESS_LIST[i].symbol;
       let balance;
       let usdPrice;
+
       if (POLYGON_TOKEN_ADDRESS_LIST[i].address !== "0x0") {
         const contract = new ethers.Contract(
           POLYGON_TOKEN_ADDRESS_LIST[i].address,
           ERC20_ABI,
           polygon_provider
         );
+
         const decimals = await contract.decimals();
         balance =
           parseInt(await contract.balanceOf(walletAddress2)) *
