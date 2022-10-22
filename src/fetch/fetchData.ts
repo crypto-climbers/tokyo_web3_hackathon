@@ -103,8 +103,6 @@ async function fetchAaveData() {
       return a.totalLiquidity - b.totalLiquidity;
     });
 
-    console.log(reserves);
-
     reserves.forEach((reserve: any, i: any) => {
       reservesData.push({
         x: 1,
@@ -117,7 +115,7 @@ async function fetchAaveData() {
         token0Address: reserve.sToken.id,
         token0: reserve.symbol,
         protocol: Protocol.AAVE,
-        img: [`/symbols/${reserve.token0.symbol}.png`],
+        img: [`/symbols/${reserve.token0?.symbol}.png`],
       });
     });
 

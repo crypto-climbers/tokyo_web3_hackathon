@@ -3,11 +3,11 @@ import { UNISWAP_COLOR, AAVE_COLOR, COWSWAP_COLOR } from "@/styles/colors";
 import BigBubble from "@/components/BigBubble";
 import Navbar from "@/components/Navbar";
 import dynamic from "next/dynamic";
-import { Box } from "@chakra-ui/react";
+import { Box, Select } from "@chakra-ui/react";
 import { aaveNode } from "@/data/protocols";
 import { GetWalletData } from "@/components/getWalletBalance";
-import { NodeType, Protocol, TokenBalance } from "@/types";
-import { useEffect, useMemo, useState } from "react";
+import { NodeType, TokenBalance, ViewType } from "@/types";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useAccount } from "wagmi";
 import { useSigner } from "wagmi";
 import { Tvl } from "@/components/tvl";
@@ -24,18 +24,25 @@ const Home: NextPage = () => {
   const [tokenBalance, setTokenBalance] = useState<{
     [p: string]: TokenBalance[];
   }>({});
-
-  const { data: signer, isError, isLoading } = useSigner();
-
+  const { isDisconnected } = useAccount();
   const [hasFetched, setHasFetched] = useState<boolean>(false);
   const [uniswapData, setUniswapData] = useState<NodeType[]>([]);
+  const [uniswapBubble, setUniswapBubble] = useState<number>(400);
+  const [cowswapBubble, setCowswapBubble] = useState<number>(300);
   const [aaveData, setAaveData] = useState<NodeType[]>([]);
-  const { isDisconnected } = useAccount();
   const [uniTvl, setUniTvl] = useState<number>();
   const [aaveTvl, setAaveTvl] = useState<number>();
   const walletdata = useMemo(() => {
     return new GetWalletData();
   }, []);
+
+  const [view, setView] = useState<ViewType>(ViewType.TVL);
+
+  const aaveBubbleSize = useMemo(() => {
+    return aaveTvl && uniTvl
+      ? (uniswapBubble * aaveTvl) / uniTvl
+      : DEFAULT_BUBBLE_SIZE;
+  }, [aaveTvl, uniTvl, uniswapBubble]);
 
   useEffect(() => {
     // const aave = new AAVE();
@@ -67,11 +74,34 @@ const Home: NextPage = () => {
     walletdata.getBalanceForEachToken();
   };
 
-  const aaveBubbleSize = useMemo(() => {
-    return aaveTvl && uniTvl ? (500 * aaveTvl) / uniTvl : DEFAULT_BUBBLE_SIZE;
-  }, [aaveTvl, uniTvl]);
-
   const [model, setModel] = useState(false);
+
+  const handleView = useCallback((view: string) => {
+    switch (view) {
+      case "TXs":
+        setView(ViewType.TXs);
+        setUniswapBubble(410);
+        setCowswapBubble(200);
+        break;
+
+      case "APR":
+        setView(ViewType.APL);
+        setUniswapBubble(350);
+        setCowswapBubble(100);
+        break;
+
+      case "TA":
+        setView(ViewType.TA);
+        setUniswapBubble(300);
+        setCowswapBubble(280);
+        break;
+
+      default:
+        setView(ViewType.TVL);
+        setUniswapBubble(400);
+        setCowswapBubble(300);
+    }
+  }, []);
 
   return (
     <Box display='flex' fontFamily='body'>
@@ -81,54 +111,109 @@ const Home: NextPage = () => {
         isDisconnected={isDisconnected}
         refreshUsdcBalance={refreshUsdcBalance}
       />
-      <BigBubble
-        size={500}
-        name='Uniswap'
-        bubbleColor={UNISWAP_COLOR.bigBubble}
-        imagePath='/Uniswap.png'
-        textColor={UNISWAP_COLOR.textColor}
-      >
-        <Graph
-          size={20}
-          data={uniswapData}
-          highlightColor={UNISWAP_COLOR.highlightColor}
-        />
-      </BigBubble>
-      <BigBubble
-        size={aaveBubbleSize}
-        name='AAVE'
-        bubbleColor={AAVE_COLOR.bigBubble}
-        imagePath='/AAVE.png'
-        textColor={AAVE_COLOR.textColor}
-      >
-        <Graph
-          size={20}
-          data={aaveNode}
-          highlightColor={AAVE_COLOR.highlightColor}
-        />
-      </BigBubble>
-      <div onClick={() => setModel(true)}>
+      <Box w='full' display='flex' flexDirection='column'>
+        <Select
+          w={500}
+          ml={10}
+          mt={5}
+          defaultValue={view}
+          onChange={(e) => {
+            handleView(e.target.value);
+          }}
+        >
+          <option value='TVL'>TVL</option>
+          <option value='TXs'>TXs</option>
+          <option value='APR'>APR</option>
+          <option value='TA'>Traded amount</option>
+        </Select>
+        <Box display='flex' maxH='900px'>
+          <BigBubble
+            size={uniswapBubble}
+            name='Uniswap'
+            bubbleColor={UNISWAP_COLOR.bigBubble}
+            imagePath='/Uniswap.png'
+            textColor={UNISWAP_COLOR.textColor}
+            x={10}
+            y={10}
+          >
+            <Graph
+              size={20}
+              data={uniswapData}
+              highlightColor={UNISWAP_COLOR.highlightColor}
+            />
+          </BigBubble>
+          <BigBubble
+            size={aaveBubbleSize}
+            name='AAVE'
+            bubbleColor={AAVE_COLOR.bigBubble}
+            imagePath='/AAVE.png'
+            textColor={AAVE_COLOR.textColor}
+            x={20}
+            y={30}
+          >
+            <Graph
+              size={20}
+              data={aaveNode}
+              highlightColor={AAVE_COLOR.highlightColor}
+            />
+          </BigBubble>
+          <div onClick={() => setModel(true)}>
+            <BigBubble
+              size={cowswapBubble}
+              name='Cow Swap'
+              bubbleColor={COWSWAP_COLOR.bigBubble}
+              imagePath='/CowSwap.png'
+              textColor={COWSWAP_COLOR.textColor}
+              x={30}
+              y={60}
+            >
+              <Graph
+                size={200 / 10}
+                data={[]}
+                highlightColor={COWSWAP_COLOR.highlightColor}
+              />
+            </BigBubble>
+          </div>
+          <CowSwapSideBar
+            isOpen={model}
+            onClose={() => {
+              setModel(false);
+            }}
+            node={{}}
+          />
+
+          <BigBubble
+            size={cowswapBubble}
+            name='Curve'
+            bubbleColor={"#3465a32b"}
+            imagePath='/curve.png'
+            textColor={UNISWAP_COLOR.textColor}
+            x={40}
+            y={60}
+          >
+            <Graph
+              size={20}
+              data={uniswapData}
+              highlightColor={UNISWAP_COLOR.highlightColor}
+            />
+          </BigBubble>
+        </Box>
         <BigBubble
-          size={300}
-          name='Cow Swap'
-          bubbleColor={COWSWAP_COLOR.bigBubble}
-          imagePath='/CowSwap.png'
-          textColor={COWSWAP_COLOR.textColor}
+          size={aaveBubbleSize}
+          name='Lido'
+          bubbleColor={"#f3837b2b"}
+          imagePath='/LDO.png'
+          textColor={UNISWAP_COLOR.textColor}
+          x={20}
+          y={60}
         >
           <Graph
-            size={200 / 10}
-            data={[]}
-            highlightColor={COWSWAP_COLOR.highlightColor}
+            size={20}
+            data={uniswapData}
+            highlightColor={UNISWAP_COLOR.highlightColor}
           />
         </BigBubble>
-      </div>
-      <CowSwapSideBar
-        isOpen={model}
-        onClose={() => {
-          setModel(false);
-        }}
-        node={{}}
-      />
+      </Box>
     </Box>
   );
 };
