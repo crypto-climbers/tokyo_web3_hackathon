@@ -53,8 +53,8 @@ const QuickSwapSideBar = ({ isOpen, onClose, node }: Props) => {
   const [amount, setAmount] = useState("");
   const [error, setEror] = useState("");
 
-  const onClickSwap = useCallback(() => {
-    // ここにスワップのロジック
+  const onClickSwap = useCallback(async () => {
+    // これがスワップを押した際に呼ばれる関数なので、ここにスワップのロジック
   }, []);
 
   return (
