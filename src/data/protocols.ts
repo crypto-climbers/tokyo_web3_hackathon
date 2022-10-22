@@ -13,6 +13,7 @@ export const uniswapNode: NodeType[] = [
     token1: "USDT",
     token2: "ETH",
     protocol: Protocol.UNISWAP,
+    img: ["/symbols/usdt.png", "/symbols/ether.png"],
   },
   {
     x: 3,
@@ -25,6 +26,7 @@ export const uniswapNode: NodeType[] = [
     token1: "MATIC",
     token2: "USDC",
     protocol: Protocol.UNISWAP,
+    img: ["/symbols/usdt.png", "/symbols/usdc.png"],
   },
   {
     x: 4,
@@ -37,6 +39,7 @@ export const uniswapNode: NodeType[] = [
     token1: "USDC",
     token2: "DAI",
     protocol: Protocol.UNISWAP,
+    img: ["/symbols/usdc.png", "/symbols/dai.png"],
   },
   {
     x: 6,
@@ -49,6 +52,7 @@ export const uniswapNode: NodeType[] = [
     token1: "USDT",
     token2: "MATIC",
     protocol: Protocol.UNISWAP,
+    img: ["/symbols/usdt.png", "/symbols/dai.png"],
   },
   {
     x: 7,
@@ -61,6 +65,7 @@ export const uniswapNode: NodeType[] = [
     token1: "MATIC",
     token2: "1inchi",
     protocol: Protocol.UNISWAP,
+    img: ["/symbols/usdc.png", "/symbols/dai.png"],
   },
   {
     x: 0.5,
@@ -73,6 +78,7 @@ export const uniswapNode: NodeType[] = [
     token1: "WETH",
     token2: "USDC",
     protocol: Protocol.UNISWAP,
+    img: ["/symbols/usdc.png", "/symbols/usdc.png"],
   },
 ];
 
@@ -88,6 +94,7 @@ export const cowswapNode: NodeType[] = [
     token1: "USDT",
     token2: "ETH",
     protocol: Protocol.COWSWAP,
+    img: ["/symbols/ether.png", "/symbols/ether.png"],
   },
   {
     x: 3,
@@ -100,6 +107,7 @@ export const cowswapNode: NodeType[] = [
     token1: "MATIC",
     token2: "USDC",
     protocol: Protocol.COWSWAP,
+    img: ["/symbols/ether.png", "/symbols/ether.png"],
   },
   {
     x: 4,
@@ -112,6 +120,7 @@ export const cowswapNode: NodeType[] = [
     token1: "USDC",
     token2: "DAI",
     protocol: Protocol.COWSWAP,
+    img: ["/usdt.png", "/ether.png"],
   },
   {
     x: 6,
@@ -124,6 +133,7 @@ export const cowswapNode: NodeType[] = [
     token1: "USDT",
     token2: "MATIC",
     protocol: Protocol.COWSWAP,
+    img: ["/symbols/ether.png", "/symbols/ether.png"],
   },
   {
     x: 7,
@@ -136,6 +146,7 @@ export const cowswapNode: NodeType[] = [
     token1: "MATIC",
     token2: "1inchi",
     protocol: Protocol.COWSWAP,
+    img: ["/symbols/ether.png", "/symbols/ether.png"],
   },
   {
     x: 0.5,
@@ -148,6 +159,7 @@ export const cowswapNode: NodeType[] = [
     token1: "WETH",
     token2: "USDC",
     protocol: Protocol.COWSWAP,
+    img: ["/symbols/ether.png", "/symbols/ether.png"],
   },
 ];
 
@@ -163,6 +175,7 @@ export const aaveNode: NodeType[] = [
     token1: "USDT",
     token2: "ETH",
     protocol: Protocol.AAVE,
+    img: ["/symbols/USDT.png", "/symbols/ETH.png"],
   },
   {
     x: 3,
@@ -175,6 +188,7 @@ export const aaveNode: NodeType[] = [
     token1: "MATIC",
     token2: "USDC",
     protocol: Protocol.AAVE,
+    img: ["/symbols/MATIC.png", "/symbols/USDC.png"],
   },
   {
     x: 4,
@@ -187,6 +201,7 @@ export const aaveNode: NodeType[] = [
     token1: "USDC",
     token2: "DAI",
     protocol: Protocol.AAVE,
+    img: ["/symbols/USDC.png", "/symbols/DAI.png"],
   },
   {
     x: 6,
@@ -199,6 +214,7 @@ export const aaveNode: NodeType[] = [
     token1: "USDT",
     token2: "MATIC",
     protocol: Protocol.AAVE,
+    img: ["/symbols/USDT.png", "/symbols/MATIC.png"],
   },
   {
     x: 7,
@@ -211,6 +227,7 @@ export const aaveNode: NodeType[] = [
     token1: "MATIC",
     token2: "1inchi",
     protocol: Protocol.AAVE,
+    img: ["/symbols/MATIC.png", "/symbols/1inchi.png"],
   },
   {
     x: 0.5,
@@ -223,5 +240,6 @@ export const aaveNode: NodeType[] = [
     token1: "WETH",
     token2: "USDC",
     protocol: Protocol.AAVE,
+    img: ["/symbols/WETH.png", "/symbols/USDC.png"],
   },
 ];
