@@ -10,7 +10,10 @@ import Head from "next/head";
 
 const { chains, provider } = configureChains(
   [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
-  [alchemyProvider({ apiKey: process.env.ALCHEMY_ID }), publicProvider()]
+  [
+    alchemyProvider({ apiKey: process.env.NEXT_PUBLIC_ALCHEMY_ID }),
+    publicProvider(),
+  ]
 );
 const { connectors } = getDefaultWallets({
   appName: "Defi Vista",

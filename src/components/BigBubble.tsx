@@ -9,6 +9,8 @@ interface Prop {
   bubbleColor: string;
   imagePath: string;
   textColor: string;
+  x: number;
+  y: number;
 }
 
 const BigBubble = ({
@@ -18,9 +20,11 @@ const BigBubble = ({
   bubbleColor,
   imagePath,
   textColor,
+  x,
+  y,
 }: Prop) => {
   return (
-    <Draggable defaultPosition={{ x: 10, y: 20 }}>
+    <Draggable defaultPosition={{ x: x, y: y }}>
       <Box
         w={`${size}px`}
         h={`${size + 100}px`}

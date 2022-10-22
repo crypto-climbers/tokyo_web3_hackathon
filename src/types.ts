@@ -30,3 +30,10 @@ export interface TokenBalance {
   tokenBalance: number;
   usdBalance: number;
 }
+
+export enum ViewType {
+  TVL = "TVL",
+  APL = "APL",
+  TXs = "TXs",
+  TA = "TA",
+}
