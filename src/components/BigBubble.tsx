@@ -51,9 +51,11 @@ const BigBubble = ({
         >
           {children}
         </Box>
-        <Text as='b' color={textColor} fontFamily='title'>
+
+        {size > 0 &&    <Text as='b' color={textColor} fontFamily='title'>
           {name}
-        </Text>
+        </Text>}
+     
       </Box>
     </Draggable>
   );

@@ -18,7 +18,6 @@ import { useAccount } from "wagmi";
 import { Tvl } from "@/components/tvl";
 import CowSwapSideBar from "@/components/CowSwapSideBar";
 import { fetchUniswapData, fetchAaveData } from "@/fetch/fetchData";
-import { UNISWAP } from "@/components/uniswap";
 import { AAVE } from "@/components/aave";
 const Graph = dynamic(() => import("@/components/CollisionDetectionFG"), {
   ssr: false,
@@ -33,8 +32,10 @@ const Home: NextPage = () => {
   const { isDisconnected } = useAccount();
   const [hasFetched, setHasFetched] = useState<boolean>(false);
   const [uniswapData, setUniswapData] = useState<NodeType[]>([]);
-  const [uniswapBubble, setUniswapBubble] = useState<number>(400);
-  const [cowswapBubble, setCowswapBubble] = useState<number>(300);
+  const [uniswapBubble, setUniswapBubble] = useState<number>(396);
+  const [aaveBubble, setAaveBubble] = useState<number>(491);
+  const [cowswapBubble, setCowswapBubble] = useState<number>(0);
+  const [lindoBubble, setLindoBubble] = useState<number>(60);
   const [aaveData, setAaveData] = useState<NodeType[]>([]);
   const [uniTvl, setUniTvl] = useState<number>();
   const [aaveTvl, setAaveTvl] = useState<number>();
@@ -46,12 +47,11 @@ const Home: NextPage = () => {
 
   const aave = new AAVE();
 
-  const aaveBubbleSize = useMemo(() => {
-    return aaveTvl && uniTvl
-      ? (uniswapBubble * aaveTvl) / uniTvl
-      : DEFAULT_BUBBLE_SIZE;
-  }, [aaveTvl, uniTvl, uniswapBubble]);
-  const uniSwap = new UNISWAP();
+  // const aaveBubbleSize = useMemo(() => {
+  //   return aaveTvl && uniTvl
+  //     ? (uniswapBubble * aaveTvl) / uniTvl
+  //     : DEFAULT_BUBBLE_SIZE;
+  // }, [aaveTvl, uniTvl, uniswapBubble]);
 
   useEffect(() => {
     const tvl = new Tvl();
@@ -87,33 +87,40 @@ const Home: NextPage = () => {
     switch (view) {
       case "TXs":
         setView(ViewType.TXs);
-        setUniswapBubble(410);
-        setCowswapBubble(200);
+        setUniswapBubble(260);
+        setCowswapBubble(20);
+        setAaveBubble(92);
+        setLindoBubble(100);
         break;
 
       case "APR":
         setView(ViewType.APL);
-        setUniswapBubble(350);
-        setCowswapBubble(100);
+        setUniswapBubble(101);
+        setCowswapBubble(0);
+        setAaveBubble(148);
+        setLindoBubble(500);
         break;
 
       case "TA":
         setView(ViewType.TA);
-        setUniswapBubble(300);
-        setCowswapBubble(280);
+        setUniswapBubble(482);
+        setCowswapBubble(37);
+        setAaveBubble(0);
+        setLindoBubble(0);
         break;
 
       default:
         setView(ViewType.TVL);
-        setUniswapBubble(400);
-        setCowswapBubble(300);
+        setUniswapBubble(396);
+        setCowswapBubble(0);
+        setAaveBubble(491);
+        setLindoBubble(60);
     }
   }, []);
 
-
   return (
     <Box display='flex' fontFamily='body'>
-      <Button onClick={() => uniSwap.swap()}>
+      {/* <Button onClick={() => uniSwap.swap()}>
         Swap matic to usdc
       </Button>
       <Button onClick={() => aave.supply(
@@ -121,7 +128,7 @@ const Home: NextPage = () => {
         "1",
       )}>
         aave
-      </Button>
+      </Button> */}
       <Navbar
         tokenBalance={tokenBalance}
         hasFetched={hasFetched}
@@ -160,7 +167,7 @@ const Home: NextPage = () => {
             />
           </BigBubble>
           <BigBubble
-            size={aaveBubbleSize}
+            size={aaveBubble}
             name='AAVE'
             bubbleColor={AAVE_COLOR.bigBubble}
             imagePath='/AAVE.png'
@@ -216,7 +223,7 @@ const Home: NextPage = () => {
           </BigBubble>
         </Box>
         <BigBubble
-          size={aaveBubbleSize}
+          size={lindoBubble}
           name='Lido'
           bubbleColor={LIDO_COLOR.bigBubble}
           imagePath='/LDO.png'
