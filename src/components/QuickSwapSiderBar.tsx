@@ -54,7 +54,17 @@ const QuickSwapSideBar = ({ isOpen, onClose, node }: Props) => {
   const [error, setEror] = useState("");
 
   const onClickSwap = useCallback(async () => {
-    const response = await swapTokensV2(quickSwapRouter, quickSwapABI, getTokenAddress(chainId, inputToken), getTokenAddress(chainId, outputToken), amount)
+    try {
+      const response = await swapTokensV2(
+        quickSwapRouter,
+        quickSwapABI,
+        getTokenAddress(chainId, inputToken),
+        getTokenAddress(chainId, outputToken),
+        amount
+      );
+    } catch (error) {
+      console.error(error);
+    }
   }, [inputToken, outputToken, amount]);
 
   return (
