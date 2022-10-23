@@ -7,6 +7,7 @@ import Modal from "@/components/GenericSidebar";
 import { NodeType, Protocol } from "@/types";
 import UniswapSidebar from "./UniswapSidebar";
 import CowSwapSideBar from "./CowSwapSideBar";
+import QuickSwapSideBar from "./QuickSwapSiderBar";
 
 interface Props {
   size: number;
@@ -61,6 +62,14 @@ const CollisionDetectionFG = ({ size, data, highlightColor }: Props) => {
           />
         );
 
+      case Protocol.QUICK:
+        return (
+          <QuickSwapSideBar
+            isOpen={isOpen}
+            onClose={() => handleClose(selectedNode)}
+            node={selectedNode}
+          />
+        );
       default:
         return (
           <Modal

@@ -5,12 +5,13 @@ import {
   COWSWAP_COLOR,
   CURVE_COLOR,
   LIDO_COLOR,
+  QUICK_COLOR,
 } from "@/styles/colors";
 import BigBubble from "@/components/BigBubble";
 import Navbar from "@/components/Navbar";
 import dynamic from "next/dynamic";
 import { Box, Button, Select } from "@chakra-ui/react";
-import { aaveNode, lidoNode, curveNode } from "@/data/protocols";
+import { aaveNode, lidoNode, curveNode, quickswapNode } from "@/data/protocols";
 import { GetWalletData } from "@/components/getWalletBalance";
 import { NodeType, TokenBalance, ViewType } from "@/types";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -19,6 +20,8 @@ import { Tvl } from "@/components/tvl";
 import CowSwapSideBar from "@/components/CowSwapSideBar";
 import { fetchUniswapData, fetchAaveData } from "@/fetch/fetchData";
 import { AAVE } from "@/components/aave";
+import QuickSwapSideBar from "@/components/QuickSwapSiderBar";
+
 const Graph = dynamic(() => import("@/components/CollisionDetectionFG"), {
   ssr: false,
 });
@@ -35,6 +38,8 @@ const Home: NextPage = () => {
   const [uniswapBubble, setUniswapBubble] = useState<number>(396);
   const [aaveBubble, setAaveBubble] = useState<number>(491);
   const [cowswapBubble, setCowswapBubble] = useState<number>(0);
+  const [curveBubble, setCurveBubble] = useState<number>(57);
+  const [quickswapBubble, setQcuickswapBubble] = useState<number>(282);
   const [lindoBubble, setLindoBubble] = useState<number>(60);
   const [aaveData, setAaveData] = useState<NodeType[]>([]);
   const [uniTvl, setUniTvl] = useState<number>();
@@ -91,14 +96,18 @@ const Home: NextPage = () => {
         setCowswapBubble(20);
         setAaveBubble(92);
         setLindoBubble(100);
+        setQcuickswapBubble(63);
+        setCurveBubble(4.8);
         break;
 
       case "APR":
-        setView(ViewType.APL);
+        setView(ViewType.APR);
         setUniswapBubble(101);
         setCowswapBubble(0);
         setAaveBubble(148);
         setLindoBubble(500);
+        setQcuickswapBubble(56);
+        setCurveBubble(60);
         break;
 
       case "TA":
@@ -107,6 +116,8 @@ const Home: NextPage = () => {
         setCowswapBubble(37);
         setAaveBubble(0);
         setLindoBubble(0);
+        setQcuickswapBubble(179);
+        setCurveBubble(86);
         break;
 
       default:
@@ -115,6 +126,8 @@ const Home: NextPage = () => {
         setCowswapBubble(0);
         setAaveBubble(491);
         setLindoBubble(60);
+        setQcuickswapBubble(282);
+        setCurveBubble(57);
     }
   }, []);
 
@@ -150,7 +163,7 @@ const Home: NextPage = () => {
           <option value='APR'>APR</option>
           <option value='TA'>Traded amount</option>
         </Select>
-        <Box display='flex' maxH='900px'>
+        <Box display='flex'>
           <BigBubble
             size={uniswapBubble}
             name='Uniswap'
@@ -166,6 +179,7 @@ const Home: NextPage = () => {
               highlightColor={UNISWAP_COLOR.highlightColor}
             />
           </BigBubble>
+
           <BigBubble
             size={aaveBubble}
             name='AAVE'
@@ -207,7 +221,7 @@ const Home: NextPage = () => {
           />
 
           <BigBubble
-            size={cowswapBubble}
+            size={curveBubble}
             name='Curve'
             bubbleColor={"#3465a32b"}
             imagePath='/curve.png'
@@ -221,22 +235,39 @@ const Home: NextPage = () => {
               highlightColor={CURVE_COLOR.highlightColor}
             />
           </BigBubble>
+
+          <BigBubble
+            size={lindoBubble}
+            name='Lido'
+            bubbleColor={LIDO_COLOR.bigBubble}
+            imagePath='/LDO.png'
+            textColor={LIDO_COLOR.textColor}
+            x={50}
+            y={70}
+          >
+            <Graph
+              size={20}
+              data={lidoNode}
+              highlightColor={LIDO_COLOR.highlightColor}
+            />
+          </BigBubble>
+
+          <BigBubble
+            size={quickswapBubble}
+            name='QuickSwap'
+            bubbleColor={QUICK_COLOR.bigBubble}
+            imagePath='/quickswap.png'
+            textColor={QUICK_COLOR.textColor}
+            x={40}
+            y={60}
+          >
+            <Graph
+              size={200 / 10}
+              data={quickswapNode}
+              highlightColor={QUICK_COLOR.highlightColor}
+            />
+          </BigBubble>
         </Box>
-        <BigBubble
-          size={lindoBubble}
-          name='Lido'
-          bubbleColor={LIDO_COLOR.bigBubble}
-          imagePath='/LDO.png'
-          textColor={LIDO_COLOR.textColor}
-          x={20}
-          y={60}
-        >
-          <Graph
-            size={20}
-            data={lidoNode}
-            highlightColor={LIDO_COLOR.highlightColor}
-          />
-        </BigBubble>
       </Box>
     </Box>
   );

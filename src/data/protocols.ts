@@ -5,6 +5,7 @@ import {
   COWSWAP_COLOR,
   CURVE_COLOR,
   LIDO_COLOR,
+  QUICK_COLOR,
 } from "@/styles/colors";
 // TODO:This is dummy data
 
@@ -221,7 +222,7 @@ export const curveNode: NodeType[] = [
     token1: "USDT",
     token2: "MATIC",
     protocol: Protocol.CURVE,
-    img: ["/symbols/usdt.png", "/symbols/dai.png"],
+    img: ["/symbols/usdt.png", "/symbols/matic.png"],
   },
 ];
 
@@ -237,7 +238,7 @@ export const lidoNode: NodeType[] = [
     token1: "MATIC",
     token2: "USDC",
     protocol: Protocol.LIDO,
-    img: ["/symbols/usdt.png", "/symbols/usdc.png"],
+    img: ["/symbols/matic.png", "/symbols/usdc.png"],
   },
   {
     x: 4,
@@ -263,6 +264,48 @@ export const lidoNode: NodeType[] = [
     token1: "USDT",
     token2: "MATIC",
     protocol: Protocol.LIDO,
-    img: ["/symbols/usdt.png", "/symbols/dai.png"],
+    img: ["/symbols/usdt.png", "/symbols/matic.png"],
+  },
+];
+
+export const quickswapNode: NodeType[] = [
+  {
+    x: 3,
+    y: 3,
+    vx: Math.random() * 2 - 1,
+    vy: Math.random() * 2 - 1,
+    val: 2.81,
+    color: QUICK_COLOR.smallBubbles,
+    title: "MATIC - USDC",
+    token1: "MATIC",
+    token2: "USDC",
+    protocol: Protocol.QUICK,
+    img: ["/symbols/matic.png", "/symbols/usdc.png"],
+  },
+  {
+    x: 4,
+    y: 4,
+    vx: Math.random() * 2 - 1,
+    vy: Math.random() * 2 - 1,
+    val: 0.34,
+    color: QUICK_COLOR.smallBubbles,
+    title: "USDC - DAI",
+    token1: "USDC",
+    token2: "DAI",
+    protocol: Protocol.QUICK,
+    img: ["/symbols/usdc.png", "/symbols/dai.png"],
+  },
+  {
+    x: 6,
+    y: 6,
+    vx: Math.random() * 2 - 1,
+    vy: Math.random() * 2 - 1,
+    val: 0.12,
+    color: QUICK_COLOR.smallBubbles,
+    title: "USDT - MATIC",
+    token1: "USDT",
+    token2: "MATIC",
+    protocol: Protocol.QUICK,
+    img: ["/symbols/usdt.png", "/symbols/matic.png"],
   },
 ];

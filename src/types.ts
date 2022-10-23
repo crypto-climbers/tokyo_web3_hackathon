@@ -25,6 +25,7 @@ export enum Protocol {
   COWSWAP = "cowswap",
   CURVE = "curve",
   LIDO = "lido",
+  QUICK = "quick",
 }
 
 export interface TokenBalance {
@@ -35,7 +36,7 @@ export interface TokenBalance {
 
 export enum ViewType {
   TVL = "TVL",
-  APL = "APL",
+  APR = "APR",
   TXs = "TXs",
   TA = "TA",
 }

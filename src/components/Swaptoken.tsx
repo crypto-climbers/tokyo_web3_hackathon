@@ -20,7 +20,7 @@ export const swapTokensV2 = async (
   const amountOutMin = amountIn * 0.95;
   const path = [inputToken, outputToken];
   const to = await signer.getAddress();
-  console.log(to);
+  //console.log(to);
   const deadline = Math.floor(Date.now() / 1000) + 10 * 60; //deadline hardcoded for ten minutes
   const rawTx = await myContract.populateTransaction.swapExactTokensForTokens(
     amountIn,
