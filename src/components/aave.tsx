@@ -32,8 +32,8 @@ export class AAVE {
         signer
       );
       const rawTx = await polygon_poolContract.populateTransaction.supply(
-        polygonUsdtAddress,
-        amount,
+        polygon_usdc,
+        1000000,
         walletAddress,
         0
       );
