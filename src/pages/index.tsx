@@ -19,7 +19,6 @@ import { Tvl } from "@/components/tvl";
 import CowSwapSideBar from "@/components/CowSwapSideBar";
 import { fetchUniswapData, fetchAaveData } from "@/fetch/fetchData";
 import { AAVE } from "@/components/aave";
-
 const Graph = dynamic(() => import("@/components/CollisionDetectionFG"), {
   ssr: false,
 });
@@ -55,8 +54,6 @@ const Home: NextPage = () => {
   // }, [aaveTvl, uniTvl, uniswapBubble]);
 
   useEffect(() => {
-    // const aave = new AAVE();
-    // const cowSwap = new CowSwap();
     const tvl = new Tvl();
 
     const fetchTokenBalance = async () => {
@@ -123,6 +120,15 @@ const Home: NextPage = () => {
 
   return (
     <Box display='flex' fontFamily='body'>
+      {/* <Button onClick={() => uniSwap.swap()}>
+        Swap matic to usdc
+      </Button>
+      <Button onClick={() => aave.supply(
+        "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+        "1",
+      )}>
+        aave
+      </Button> */}
       <Navbar
         tokenBalance={tokenBalance}
         hasFetched={hasFetched}

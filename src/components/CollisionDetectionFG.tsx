@@ -30,7 +30,7 @@ const CollisionDetectionFG = ({ size, data, highlightColor }: Props) => {
     fgRef.current.zoomToFit(1000, 300);
   };
   const checkProtocol = useCallback(() => {
-    switch (selectedNode?.title) {
+    switch (selectedNode?.protocol) {
       case Protocol.UNISWAP:
         return (
           <UniswapSidebar
