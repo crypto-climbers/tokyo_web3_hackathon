@@ -10,11 +10,13 @@ import {
   TabPanels,
   Tab,
   TabPanel,
+  Button,
 } from "@chakra-ui/react";
 import { SwapWidget } from "@uniswap/widgets";
+import { UNISWAP } from "@/components/uniswap";
 
 import { NodeType } from "@/types";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { TOKEN_LIST } from "@/data/tokenlist";
 
 import LensPost from "./LensPost";
@@ -46,6 +48,24 @@ const UniswapSidebar = ({
   outputToken,
 }: Props) => {
   const [placement, setPlacement] = useState<SlideDirection>("right");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const swapUniswap = useCallback(async () => {
+    const uniSwap = new UNISWAP();
+
+    try {
+      setIsLoading(true);
+
+      const response = await uniSwap.swap();
+      if (response) {
+        setIsLoading(false);
+      }
+    } catch (error) {
+      setIsLoading(false);
+
+      console.error(error);
+    }
+  }, []);
   return (
     <Drawer
       placement={placement}
@@ -71,6 +91,16 @@ const UniswapSidebar = ({
           <TabPanels>
             <TabPanel overflowY='scroll' maxHeight='90vh'>
               <DrawerBody color='black'>
+                <Button
+                  isLoading={isLoading}
+                  loadingText='Swapping'
+                  colorScheme='teal'
+                  variant='outline'
+                  mb={20}
+                  onClick={swapUniswap}
+                >
+                  Swap (demo)
+                </Button>
                 <SwapWidget
                   defaultInputTokenAddress={inputToken}
                   defaultOutputTokenAddress={outputToken}
