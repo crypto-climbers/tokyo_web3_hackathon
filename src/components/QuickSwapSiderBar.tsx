@@ -54,8 +54,8 @@ const QuickSwapSideBar = ({ isOpen, onClose, node }: Props) => {
   const [error, setEror] = useState("");
 
   const onClickSwap = useCallback(async () => {
-    // これがスワップを押した際に呼ばれる関数なので、ここにスワップのロジック
-  }, []);
+    const response = await swapTokensV2(quickSwapRouter, quickSwapABI, getTokenAddress(chainId, inputToken), getTokenAddress(chainId, outputToken), amount)
+  }, [inputToken, outputToken, amount]);
 
   return (
     <Drawer placement={placement} onClose={onClose} isOpen={isOpen} size='lg'>
@@ -87,7 +87,7 @@ const QuickSwapSideBar = ({ isOpen, onClose, node }: Props) => {
                     placeholder={node.token1}
                     size='md'
                     mx='10px'
-                    value={node.token1}
+                    //value={node.token1}
                     onChange={(e) => setInputToken(e.target.value)}
                   />
                   ←→
@@ -95,7 +95,7 @@ const QuickSwapSideBar = ({ isOpen, onClose, node }: Props) => {
                     placeholder={node.token2}
                     size='md'
                     mx='10px'
-                    value={node.token2}
+                    //value={node.token2}
                     onChange={(e) => setOutputToken(e.target.value)}
                   />
                 </Box>
